@@ -1,0 +1,10 @@
+{
+  "name": "CSAPP Labs",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu-22.04",
+  "postCreateCommand": "apt update && apt install -y build-essential gdb valgrind",
+  "customizations": {
+    "vscode": {
+      "extensions": ["ms-vscode.cpptools"]
+    }
+  }
+}
