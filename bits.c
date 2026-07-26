@@ -47,7 +47,8 @@ INTEGER CODING RULES:
   2. Function arguments and local variables (no global variables).
   3. Unary integer operations ! ~
   4. Binary integer operations & ^ | + << >>
-    
+
+
   Some of the problems restrict the set of allowed operators even further.
   Each "Expr" may consist of multiple operators. You are not restricted to
   one operator per line.
@@ -143,7 +144,9 @@ NOTES:
  *   Rating: 1
  */
 int bitXor(int x, int y) {
-  return 2;
+	int Exp1 = ~ ((~ x) & y);
+	int Exp2 = ~ (x & (~ y));
+	return ~ (Exp1 & Exp2);
 }
 /* 
  * tmin - return minimum two's complement integer 
@@ -152,9 +155,7 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmin(void) {
-
-  return 2;
-
+  return (0x80 << 24);
 }
 //2
 /*
@@ -165,7 +166,8 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-  return 2;
+	int mask = ~ (1 << 31); // 0x 8000 0000
+  return !(x ^ mask);
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -176,7 +178,10 @@ int isTmax(int x) {
  *   Rating: 2
  */
 int allOddBits(int x) {
-  return 2;
+	int mask = (0xAA << 24) | (0xAA << 16) | (0xAA << 8) | 0xAA; // ops = 6
+	int even_zeroed = x & mask; // set all even-numbered bits 0; and keep odd-numbered bits the same.
+	int compared = even_zeroed ^ mask; // if all odd-numbered bits are set to 1, then it's 0; otherwise non-zero
+	return !compared;
 }
 /* 
  * negate - return -x 
@@ -186,6 +191,7 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
+	
   return 2;
 }
 //3
