@@ -155,7 +155,7 @@ int bitXor(int x, int y) {
  *   Rating: 1
  */
 int tmin(void) {
-  return (0x80 << 24);
+    return (0x80 << 24);
 }
 //2
 /*
@@ -166,8 +166,16 @@ int tmin(void) {
  *   Rating: 1
  */
 int isTmax(int x) {
-	int mask = ~ (1 << 31); // 0x 8000 0000
-  return !(x ^ mask);
+    /*
+    考虑Tmax的算数性质，由于禁止位移，不妨少写几位，仅考虑8bitTmax = 0x7F
+    Tmax + 1 = 0xA0 -> 2(Tmax + 1) = 0x00
+    考虑方程 2x + 2 = 0 (mod 2^w)
+    则解为-1, Tmax
+    那么只需要排除-1
+    */
+    int isTmaxOrNegOne = !(x + x + 2);
+    int notNegOne = !!(~x);
+    return isTmaxOrNegOne & notNegOne;
 }
 /* 
  * allOddBits - return 1 if all odd-numbered bits in word set to 1
@@ -191,8 +199,8 @@ int allOddBits(int x) {
  *   Rating: 2
  */
 int negate(int x) {
-	
-  return 2;
+    
+    return 2;
 }
 //3
 /* 
